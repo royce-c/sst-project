@@ -11,7 +11,7 @@ export function API({ stack }: StackContext) {
       myAuthorizer: {
         type: "jwt",
         jwt: {
-          issuer: "https://expensesappagainb.kinde.com",
+          issuer: "https://royce.kinde.com",
           audience: [audience],
         },
       },
