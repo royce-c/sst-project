@@ -42,7 +42,13 @@ export function API({ stack }: StackContext) {
           },
           handler: "packages/functions/src/s3.handler",
         }
-      }
+      },
+      // "GET /cs": {
+      //   function: {
+      //     handler: "packages/csharp/MyFirstCSharpFunction",
+      //     runtime: "container",
+      //   },
+      // },
     },
   });
 
