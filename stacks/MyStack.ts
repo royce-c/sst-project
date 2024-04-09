@@ -2,8 +2,7 @@ import { StackContext, Api, StaticSite, Bucket } from "sst/constructs";
 
 export function API({ stack }: StackContext) {
 
-  // const audience = `api-NotesApp-${stack.stage}`
-  const audience = `api-NotesApp-${"royce"}` //fix later?
+  const audience = `api-NotesApp-${stack.stage}`
 
   const assetsBucket = new Bucket(stack, "assets");
 
