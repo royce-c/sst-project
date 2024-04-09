@@ -42,22 +42,22 @@ export function API({ stack }: StackContext) {
           handler: "packages/functions/src/s3.handler",
         }
       },
-      // "GET /cs": {
-      //   function: {
-      //     handler: "packages/csharp/MyFirstCSharpFunction",
-      //     runtime: "container",
-      //   },
-      // },
+      "GET /cs": {
+        function: {
+          handler: "packages/csharp/MyFirstCSharpFunction",
+          runtime: "container",
+        },
+      },
     },
   });
 
   api.attachPermissionsToRoute("POST /signed-url", [assetsBucket, "grantPut"])
 
   const web = new StaticSite(stack, "web", {
-    customDomain: stack.stage === "prod" ? {
-      domainName: "expensesappagainb.smw.wtf",
-      hostedZone: "smw.wtf",
-    } : undefined,
+    // customDomain: stack.stage === "prod" ? {
+    //   domainName: "expensesappagainb.smw.wtf",
+    //   hostedZone: "smw.wtf",
+    // } : undefined,
     path: "packages/web",
     buildOutput: "dist",
     buildCommand: "npm run build",
