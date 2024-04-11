@@ -52,7 +52,7 @@ function NewExpensePage() {
     });
   };
 
-  const analyseImage = async (file: File) => {
+  const analyzeImage = async (file: File) => {
     let body = "";
     const value = "Return the text content of the image";
     if (file) {
@@ -88,7 +88,7 @@ function NewExpensePage() {
     });
     
     const completionResult = await res.text();
-    console.log("Completion Result:", completionResult);
+    // console.log("Completion Result:", completionResult);
     return completionResult;
   };
 
@@ -100,7 +100,10 @@ function NewExpensePage() {
       }
 
       if (image) {
-        console.log(analyseImage(image));
+        const analysis = analyzeImage(image);
+        analysis.then(result => {
+          console.log("Analysis:", result);
+        });        
         const signedURLResponse = await fetch(
           import.meta.env.VITE_APP_API_URL + "/signed-url",
           {
