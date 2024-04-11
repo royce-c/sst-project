@@ -43,6 +43,47 @@ function NewExpensePage() {
     return hashHex;
   };
 
+  const convertFileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
+  const analyseImage = async (file: File) => {
+    let body = "";
+    const value = "Return the text content of the image";
+    if (file) {
+      const base64 = await convertFileToBase64(file);
+
+      const contentForAI = [
+        {
+          type: "text",
+          text: value,
+        },
+        {
+          type: "image_url",
+          image_url: {
+            url: base64,
+          },
+        },
+      ];
+      body = JSON.stringify({ content: contentForAI });
+    } else {
+      body = JSON.stringify({ content: value });
+    }
+
+    const res = await fetch(import.meta.env.VITE_APP_API_URL + "/ai", {
+      method: "POST",
+      body: body,
+    });
+    const completionResult = await res.text();
+    console.log("Completion Result:", completionResult);
+    return completionResult;
+  };
+
   const mutation = useMutation({
     mutationFn: async ({ data, image }: { data: Expense; image?: File }) => {
       const token = await getToken();
@@ -51,6 +92,7 @@ function NewExpensePage() {
       }
 
       if (image) {
+        console.log(analyseImage(image));
         const signedURLResponse = await fetch(
           import.meta.env.VITE_APP_API_URL + "/signed-url",
           {
