@@ -14,15 +14,15 @@ type Message = {
 };
 
 export const messageForAI: Message[] = [
-    {
-      role: "system",
-      content: "You are an expert at explaining images"
-    },
-    {
-      role: "user",
-      content: "Please explain this image to me",
-    },
-  ];
+  {
+    role: "system",
+    content: "You are an expert at explaining images",
+  },
+  {
+    role: "user",
+    content: "Please explain this image to me",
+  },
+];
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -34,13 +34,7 @@ type Model =
   | "gpt-3.5-turbo-1106";
 
 app.post("/ai", authMiddleware, async (c) => {
-  const { content } = await c.req.json()
-
-//   const session = await auth()
-
-//   if (!session) {
-//     return { failure: "not authenticated" }
-//   }
+  const { content } = await c.req.json();
 
   let messages: Message[] = [
     {
@@ -50,26 +44,22 @@ app.post("/ai", authMiddleware, async (c) => {
   ];
 
   const params: OpenAI.Chat.ChatCompletionCreateParams = {
-    // model: "gpt-4-1106-preview",
     model: "gpt-4-vision-preview",
-    stream: true,
     messages: [...messageForAI, ...messages],
     max_tokens: 4096,
   };
 
-  const iterator = await openai.chat.completions.create(params);
+  try {
+    const AIResponse = await openai.chat.completions.create(params);
+    const firstChoice = AIResponse.choices[0];
+    const assistantMessage = firstChoice.message;
+    const assistantContent = assistantMessage.content;
 
-  const stream = OpenAIStream(iterator, {
-    async onStart() {
-      console.log("onStart");
-    },
-    async onCompletion(completion: any) {
-      console.log("onCompletion", completion);
-      // revalidatePath("/");
-    },
-  });
-
-  return new StreamingTextResponse(stream);
+    return c.json({ AIResponse: assistantContent });
+  } catch (error) {
+    console.error("Error calling OpenAI:", error);
+    return c.json({ error: "Failed to get AI response" });
+  }
 });
 
 export const handler = handle(app);
