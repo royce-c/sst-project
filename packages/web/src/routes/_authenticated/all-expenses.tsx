@@ -9,11 +9,12 @@ import {
 } from "@/components/ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
 
-import { formatCurrency } from "@/lib/utils";
+// import { formatCurrency } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 
 import { createFileRoute } from "@tanstack/react-router";
 import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
+import React from "react";
 
 export const Route = createFileRoute("/_authenticated/all-expenses")({
   component: AllExpenses,
@@ -70,7 +71,7 @@ function AllExpenses() {
           </TableHeader>
           <TableBody>
             {isPending ? (
-              <TableRow>
+              <TableRow key="loading">
                 <TableCell className="font-medium">
                   <Skeleton className="h-4 w-full"></Skeleton>
                 </TableCell>
@@ -85,22 +86,23 @@ function AllExpenses() {
                 </TableCell>
               </TableRow>
             ) : (
-              data.expenses.map((expense) => (
-                <><TableRow key={expense.id}>
-                  <TableCell className="font-medium" colSpan={3}>
-                    {expense.title}
-                  </TableCell>
-                </TableRow><TableRow key={expense.id}>
-                    <TableCell>
-                      {expense.date.split("T")[0]}
+              data.expenses.map((expense, index) => (
+                <React.Fragment key={`expense-${index}`}>
+                  <TableRow>
+                    <TableCell className="font-medium" colSpan={3}>
+                      {expense.title}
                     </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>{expense.date.split("T")[0]}</TableCell>
+                    <TableCell>{/* {formatCurrency(expense.amount)} */}</TableCell>
                     <TableCell>
-                      {/* {formatCurrency(expense.amount)} */}
+                      {expense.imageUrl && (
+                        <img className="max-w-full" src={expense.imageUrl} alt={expense.title} />
+                      )}
                     </TableCell>
-                    <TableCell>
-                      {expense.imageUrl && <img className="max-w-full" src={expense.imageUrl} alt={expense.title} />}
-                    </TableCell>
-                  </TableRow></>
+                  </TableRow>
+                </React.Fragment>
               ))
             )}
           </TableBody>
@@ -108,4 +110,5 @@ function AllExpenses() {
       )}
     </>
   );
+  
 }
