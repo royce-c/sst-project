@@ -75,10 +75,18 @@ function NewExpensePage() {
       body = JSON.stringify({ content: value });
     }
 
+    const token = await getToken();
+
+    const headers = new Headers();
+    headers.append("Authorization", token || "");
+    headers.append("Content-Type", "application/json");
+    
     const res = await fetch(import.meta.env.VITE_APP_API_URL + "/ai", {
       method: "POST",
       body: body,
+      headers: headers,
     });
+    
     const completionResult = await res.text();
     console.log("Completion Result:", completionResult);
     return completionResult;

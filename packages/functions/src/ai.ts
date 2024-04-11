@@ -2,7 +2,7 @@ import OpenAI from "openai";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import { Hono } from "hono";
 import { handle } from "hono/aws-lambda";
-// import { auth } from "auth";
+import { authMiddleware } from "@my-expenses-app/core/auth";
 
 const app = new Hono();
 
@@ -33,7 +33,7 @@ type Model =
   | "gpt-4-1106-preview"
   | "gpt-3.5-turbo-1106";
 
-app.post("/ai", async (c) => {
+app.post("/ai", authMiddleware, async (c) => {
   const { content } = await c.req.json()
 
 //   const session = await auth()
