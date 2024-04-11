@@ -163,16 +163,10 @@ function NewExpensePage() {
         analysisResult = result;
         console.log("Analysis Result:", analysisResult);
       }
-      const cleanAnalysisResult = analysisResult
-      .split(' 0:"')
-      .join(" ")
-      .replace(/0:"/g, "")
-      .replace(/"/g, "");
-      console.log("done: " + cleanAnalysisResult);
 
       const data = {
         amount: value.amount,
-        title: cleanAnalysisResult,
+        title: analysisResult,
         date: value.date.toISOString().split("T")[0],
       };
 
