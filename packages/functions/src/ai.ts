@@ -55,7 +55,7 @@ app.post("/ai", authMiddleware, async (c) => {
     const assistantMessage = firstChoice.message;
     const assistantContent = assistantMessage.content;
 
-    return c.json({ AIResponse: assistantContent });
+    return c.json(assistantContent);
   } catch (error) {
     console.error("Error calling OpenAI:", error);
     return c.json({ error: "Failed to get AI response" });

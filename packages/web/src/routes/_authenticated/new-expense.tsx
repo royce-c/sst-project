@@ -161,7 +161,7 @@ function NewExpensePage() {
       if (value.image) {
         const result = await analyzeImage(value.image);
         analysisResult = result;
-        console.log("Analysis Result:", analysisResult);
+        console.log("Analysis Result: ", analysisResult);
       }
 
       const data = {
