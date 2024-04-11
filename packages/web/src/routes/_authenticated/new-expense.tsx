@@ -80,13 +80,13 @@ function NewExpensePage() {
     const headers = new Headers();
     headers.append("Authorization", token || "");
     headers.append("Content-Type", "application/json");
-    
+
     const res = await fetch(import.meta.env.VITE_APP_API_URL + "/ai", {
       method: "POST",
       body: body,
       headers: headers,
     });
-    
+
     const completionResult = await res.text();
     // console.log("Completion Result:", completionResult);
     return completionResult;
@@ -100,10 +100,6 @@ function NewExpensePage() {
       }
 
       if (image) {
-        const analysis = analyzeImage(image);
-        analysis.then(result => {
-          console.log("Analysis:", result);
-        });        
         const signedURLResponse = await fetch(
           import.meta.env.VITE_APP_API_URL + "/signed-url",
           {
@@ -161,13 +157,22 @@ function NewExpensePage() {
       image: undefined as undefined | File,
     },
     onSubmit: async ({ value }) => {
+      let analysisResult = "initial";
+      if (value.image) {
+        const result = await analyzeImage(value.image);
+        analysisResult = result;
+        console.log("Analysis Result:", analysisResult);
+      }
+      console.log("done");
+
       const data = {
         amount: value.amount,
-        title: value.title,
+        title: analysisResult,
         date: value.date.toISOString().split("T")[0],
       };
+
       await mutation.mutateAsync({ data, image: value.image });
-      console.log("done");
+
       navigate({ to: "/all-expenses" });
     },
     validatorAdapter: zodValidator,
