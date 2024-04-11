@@ -86,16 +86,21 @@ function AllExpenses() {
               </TableRow>
             ) : (
               data.expenses.map((expense) => (
-                <TableRow key={expense.id}>
-                  <TableCell className="font-medium">{expense.title}</TableCell>
-                  <TableCell>{expense.date.split("T")[0]}</TableCell>
-                  <TableCell>
-                    {expense.imageUrl && <img className="max-w-12" src={expense.imageUrl} />}
+                <><TableRow key={expense.id}>
+                  <TableCell className="font-medium" colSpan={3}>
+                    {expense.title}
                   </TableCell>
-                  <TableCell className="text-right">
-                    {formatCurrency(expense.amount)}
-                  </TableCell>
-                </TableRow>
+                </TableRow><TableRow key={expense.id}>
+                    <TableCell>
+                      {expense.date.split("T")[0]}
+                    </TableCell>
+                    <TableCell>
+                      {/* {formatCurrency(expense.amount)} */}
+                    </TableCell>
+                    <TableCell>
+                      {expense.imageUrl && <img className="max-w-full" src={expense.imageUrl} alt={expense.title} />}
+                    </TableCell>
+                  </TableRow></>
               ))
             )}
           </TableBody>
