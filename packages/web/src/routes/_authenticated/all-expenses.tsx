@@ -1,3 +1,9 @@
+import React from "react";
+import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
+import { createFileRoute } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+// import { formatCurrency } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
   TableBody,
@@ -7,14 +13,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Skeleton } from "@/components/ui/skeleton";
-
-// import { formatCurrency } from "@/lib/utils";
-import { useQuery } from "@tanstack/react-query";
-
-import { createFileRoute } from "@tanstack/react-router";
-import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
-import React from "react";
 
 export const Route = createFileRoute("/_authenticated/all-expenses")({
   component: AllExpenses,
@@ -56,18 +54,18 @@ function AllExpenses() {
 
   return (
     <>
-      <h1 className="text-2xl">All Expenses</h1>
+      {/* <h1 className="text-2xl">All Expenses</h1> */}
       {error ? (
         "An error has occurred: " + error.message
       ) : (
         <Table>
           <TableCaption>A list of your recent expenses.</TableCaption>
           <TableHeader>
-            <TableRow>
+            {/* <TableRow>
               <TableHead className="w-[100px]">Invoice</TableHead>
               <TableHead>Date</TableHead>
               <TableHead className="text-right">Amount</TableHead>
-            </TableRow>
+            </TableRow> */}
           </TableHeader>
           <TableBody>
             {isPending ? (
@@ -86,29 +84,41 @@ function AllExpenses() {
                 </TableCell>
               </TableRow>
             ) : (
-              data.expenses.map((expense, index) => (
-                <React.Fragment key={`expense-${index}`}>
-                  <TableRow>
-                    <TableCell className="font-medium" colSpan={3}>
-                      {expense.title}
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>{expense.date.split("T")[0]}</TableCell>
-                    <TableCell>{/* {formatCurrency(expense.amount)} */}</TableCell>
+              data.expenses
+                .slice()
+                .reverse()
+                .map((expense, index) => (
+                  <React.Fragment key={`expense-${index}`}>
+                    {/* <TableRow> */}
+                    {/* <TableCell>{expense.date.split("T")[0]}</TableCell>
                     <TableCell>
+                      {formatCurrency(expense.amount)}
+                    </TableCell> */}
+                    {/* <TableCell> */}
+                    <div className="p-4">
+                      {" "}
+                      {/* Add padding here */}
                       {expense.imageUrl && (
-                        <img className="max-w-full" src={expense.imageUrl} alt={expense.title} />
+                        <img
+                          className="w-60 h-60 object-cover rounded-lg mx-auto"
+                          src={expense.imageUrl}
+                          alt={expense.title}
+                        />
                       )}
-                    </TableCell>
-                  </TableRow>
-                </React.Fragment>
-              ))
+                    </div>
+                    {/* </TableCell> */}
+                    {/* </TableRow> */}
+                    <TableRow>
+                      <TableCell className="font-medium" colSpan={3}>
+                        {expense.title} Date: {expense.date.split("T")[0]}
+                      </TableCell>
+                    </TableRow>
+                  </React.Fragment>
+                ))
             )}
           </TableBody>
         </Table>
       )}
     </>
   );
-  
 }
