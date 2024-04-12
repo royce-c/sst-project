@@ -221,7 +221,7 @@ function NewExpensePage() {
                 <Label>
                   Description
                   <Input
-                    type="number"
+                    type="string"
                     value={field.state.value}
                     onBlur={field.handleBlur}
                     onChange={(e) => field.handleChange(e.target.value)}
