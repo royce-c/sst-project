@@ -17,7 +17,7 @@ function HomePage() {
       throw new Error("No token found");
     }
     const res = await fetch(
-      import.meta.env.VITE_APP_API_URL + "/expenses/total-amount",
+      import.meta.env.VITE_APP_API_URL + "/expenses/total-description",
       {
         headers: {
           Authorization: token,

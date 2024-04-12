@@ -9,12 +9,12 @@ import { authMiddleware } from "@my-expenses-app/core/auth";
 
 const app = new Hono();
 
-app.get("/expenses/total-amount", authMiddleware, async (c) => {
+app.get("/expenses/total-description", authMiddleware, async (c) => {
   const userId = c.var.userId;
 
   console.log(userId);
   const result = await db
-    .select({ total: sum(expensesTable.amount) })
+    .select({ total: sum(expensesTable.description) })
     .from(expensesTable)
     .where(eq(expensesTable.userId, userId))
     .then((res) => res[0]);

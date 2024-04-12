@@ -31,7 +31,7 @@ export function API({ stack }: StackContext) {
           handler: "packages/functions/src/lambda.handler",
         }
       },
-      "GET /expenses/total-amount": "packages/functions/src/expenses.handler",
+      "GET /expenses/total-description": "packages/functions/src/expenses.handler",
       "GET /expenses": "packages/functions/src/expenses.handler",
       "POST /expenses": "packages/functions/src/expenses.handler",
       "POST /ai": {

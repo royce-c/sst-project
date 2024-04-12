@@ -22,7 +22,7 @@ export const Route = createFileRoute("/_authenticated/new-expense")({
 
 type Expense = {
   title: string;
-  amount: string;
+  description: string;
   date: string;
   imageUrl?: string;
 };
@@ -152,7 +152,7 @@ function NewExpensePage() {
   const form = useForm({
     defaultValues: {
       title: "",
-      amount: "",
+      description: "",
       date: new Date(),
       image: undefined as undefined | File,
     },
@@ -165,7 +165,7 @@ function NewExpensePage() {
       }
 
       const data = {
-        amount: value.amount,
+        description: value.description,
         title: analysisResult,
         date: value.date.toISOString().split("T")[0],
       };
@@ -216,10 +216,10 @@ function NewExpensePage() {
           </div>
           <div>
             <form.Field
-              name="amount"
+              name="description"
               children={(field) => (
                 <Label>
-                  Amount
+                  Description
                   <Input
                     type="number"
                     value={field.state.value}
@@ -253,7 +253,7 @@ function NewExpensePage() {
               name="image"
               children={(field) => (
                 <Label>
-                  Amount
+                  Description
                   {filePreviewURL && (
                     <img className="max-w-40 m-auto" src={filePreviewURL} />
                   )}

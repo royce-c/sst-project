@@ -21,7 +21,7 @@ export const Route = createFileRoute("/_authenticated/all-expenses")({
 type Expense = {
   id: number;
   title: string;
-  amount: number;
+  description: number;
   date: string;
   imageUrl?: string;
 };
@@ -64,7 +64,7 @@ function AllExpenses() {
             {/* <TableRow>
               <TableHead className="w-[100px]">Invoice</TableHead>
               <TableHead>Date</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
+              <TableHead className="text-right">Description</TableHead>
             </TableRow> */}
           </TableHeader>
           <TableBody>
@@ -87,7 +87,7 @@ function AllExpenses() {
               data.expenses.map((expense, index) => (
                 <React.Fragment key={`expense-${index}`}>
                   
-                  <div className="font-bold text-center">{expense.amount}</div>
+                  <div className="font-bold text-center">{expense.description}</div>
 
                   {/* <TableRow> */}
                   {/* <TableCell>{expense.date.split("T")[0]}</TableCell>
