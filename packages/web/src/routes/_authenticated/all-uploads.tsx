@@ -6,9 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableHeader,
   TableRow,
 } from "@/components/ui/table";
 
@@ -74,7 +72,7 @@ function Alluploads() {
                 </TableCell>
               </TableRow>
             ) : (
-              data.uploads.map((upload, index) => (
+              data.uploads.slice().reverse().map((upload, index) => (
                 <React.Fragment key={`upload-${index}`}>
                   <div className="font-bold font-large text-center p-3">
                     {upload.description}
