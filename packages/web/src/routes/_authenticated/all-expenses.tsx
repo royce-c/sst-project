@@ -84,41 +84,39 @@ function AllExpenses() {
                 </TableCell>
               </TableRow>
             ) : (
-              data.expenses
-                .slice()
-                .reverse()
-                .map((expense, index) => (
-                  <React.Fragment key={`expense-${index}`}>
-                    {/* <TableRow> */}
-                    {/* <TableCell>{expense.date.split("T")[0]}</TableCell>
-                    <TableCell>
-                      {formatCurrency(expense.amount)}
-                    </TableCell> */}
-                    {/* <TableCell> */}
-                    <div className="p-4">
-                      {" "}
-                      {/* Add padding here */}
-                      {expense.imageUrl && (
-                        <img
-                          className="w-60 h-60 object-cover rounded-lg mx-auto"
-                          src={expense.imageUrl}
-                          alt={expense.title}
-                        />
-                      )}
-                    </div>
-                    {/* </TableCell> */}
-                    {/* </TableRow> */}
-                    <TableRow>
-                      <TableCell className="font-medium" colSpan={3}>
-                        {expense.title} Date: {expense.date.split("T")[0]}
-                      </TableCell>
-                    </TableRow>
-                  </React.Fragment>
-                ))
+              data.expenses.map((expense, index) => (
+                <React.Fragment key={`expense-${index}`}>
+                  {/* <TableRow> */}
+                  {/* <TableCell>{expense.date.split("T")[0]}</TableCell>
+                  <TableCell>
+                    {formatCurrency(expense.amount)}
+                  </TableCell> */}
+                  {/* <TableCell> */}
+                  <div className="p-4">
+                    {" "}
+                    {/* Add padding here */}
+                    {expense.imageUrl && (
+                      <img
+                        className="w-60 h-60 object-cover rounded-lg mx-auto"
+                        src={expense.imageUrl}
+                        alt={expense.title}
+                      />
+                    )}
+                  </div>
+                  {/* </TableCell> */}
+                  {/* </TableRow> */}
+                  <TableRow>
+                    <TableCell className="font-medium" colSpan={3}>
+                      {expense.title} Date: {expense.date.split("T")[0]}
+                    </TableCell>
+                  </TableRow>
+                </React.Fragment>
+              ))
             )}
           </TableBody>
         </Table>
       )}
     </>
   );
+  
 }
