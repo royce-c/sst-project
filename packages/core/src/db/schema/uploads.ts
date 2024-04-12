@@ -4,18 +4,17 @@ import {
   varchar,
   timestamp,
   index,
-  numeric,
   serial,
   date,
 } from "drizzle-orm/pg-core";
 
-export const expenses = pgTable(
-  "expenses",
+export const uploads = pgTable(
+  "uploads",
   {
     id: serial("id").primaryKey(),
     userId: text("user_id").notNull(),
     title: varchar("title", { length: 1000 }).notNull(),
-    amount: numeric("amount", { precision: 10, scale: 2 }).notNull(),
+    description: varchar("description", { length: 100 }).notNull(),
     date: date("date", { mode: "string" }).notNull(),
     imageUrl: text("image_url"),
     createdAt: timestamp("created_at", { withTimezone: true })

@@ -7,7 +7,7 @@ export function Login() {
   const { login, register } = useKindeAuth();
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-4xl font-bold">Welcome to Expense Tracker</h1>
+      <h1 className="text-4xl font-bold">Welcome to Upload Tracker</h1>
       <p className="text-xl">Please login to continue</p>
       <div className="mt-8 flex flex-col gap-y-4">
         <Button onClick={() => login()}>Login</Button>

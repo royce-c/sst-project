@@ -16,20 +16,20 @@ import { useNavigate } from "@tanstack/react-router";
 import { createFileRoute } from "@tanstack/react-router";
 import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 
-export const Route = createFileRoute("/_authenticated/new-expense")({
-  component: NewExpensePage,
+export const Route = createFileRoute("/_authenticated/new-upload")({
+  component: NewuploadPage,
 });
 
-type Expense = {
+type Upload = {
   title: string;
-  amount: string;
+  description: string;
   date: string;
   imageUrl?: string;
 };
 
-function NewExpensePage() {
+function NewuploadPage() {
   const { getToken } = useKindeAuth();
-  const navigate = useNavigate({ from: "/new-expense" });
+  const navigate = useNavigate({ from: "/new-upload" });
 
   const [filePreviewURL, setFilePreviewURL] = useState<string | undefined>();
 
@@ -93,7 +93,7 @@ function NewExpensePage() {
   };
 
   const mutation = useMutation({
-    mutationFn: async ({ data, image }: { data: Expense; image?: File }) => {
+    mutationFn: async ({ data, image }: { data: Upload; image?: File }) => {
       const token = await getToken();
       if (!token) {
         throw new Error("No token found");
@@ -116,7 +116,7 @@ function NewExpensePage() {
           }
         );
         if (!signedURLResponse.ok) {
-          throw new Error("An error occurred while creating the expense");
+          throw new Error("An error occurred while creating the upload");
         }
         const { url } = (await signedURLResponse.json()) as { url: string };
 
@@ -132,9 +132,9 @@ function NewExpensePage() {
         data.imageUrl = imageUrl;
       }
 
-      const res = await fetch(import.meta.env.VITE_APP_API_URL + "/expenses", {
+      const res = await fetch(import.meta.env.VITE_APP_API_URL + "/uploads", {
         method: "POST",
-        body: JSON.stringify({ expense: data }),
+        body: JSON.stringify({ upload: data }),
         headers: {
           Authorization: token,
           "Content-Type": "application/json",
@@ -142,17 +142,17 @@ function NewExpensePage() {
       });
 
       if (!res.ok) {
-        throw new Error("An error occurred while creating the expense");
+        throw new Error("An error occurred while creating the upload");
       }
       const json = await res.json();
-      return json.expense;
+      return json.upload;
     },
   });
 
   const form = useForm({
     defaultValues: {
       title: "",
-      amount: "",
+      description: "",
       date: new Date(),
       image: undefined as undefined | File,
     },
@@ -165,21 +165,21 @@ function NewExpensePage() {
       }
 
       const data = {
-        amount: value.amount,
+        description: value.description,
         title: analysisResult,
         date: value.date.toISOString().split("T")[0],
       };
 
       await mutation.mutateAsync({ data, image: value.image });
 
-      navigate({ to: "/all-expenses" });
+      navigate({ to: "/all-uploads" });
     },
     validatorAdapter: zodValidator,
   });
 
   return (
     <>
-      <h1 className="text-2xl">New Expense</h1>
+      <h1 className="text-2xl">New Upload</h1>
       {mutation.isError && (
         <Alert>
           <AlertCircle className="h-4 w-4" />
@@ -216,12 +216,12 @@ function NewExpensePage() {
           </div>
           <div>
             <form.Field
-              name="amount"
+              name="description"
               children={(field) => (
                 <Label>
-                  Amount
+                  Description
                   <Input
-                    type="number"
+                    type="string"
                     value={field.state.value}
                     onBlur={field.handleBlur}
                     onChange={(e) => field.handleChange(e.target.value)}
@@ -253,7 +253,7 @@ function NewExpensePage() {
               name="image"
               children={(field) => (
                 <Label>
-                  Amount
+                  Description
                   {filePreviewURL && (
                     <img className="max-w-40 m-auto" src={filePreviewURL} />
                   )}

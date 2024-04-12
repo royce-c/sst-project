@@ -15,8 +15,8 @@ import { Route as AboutImport } from './routes/about'
 import { Route as AuthenticatedImport } from './routes/_authenticated'
 import { Route as AuthenticatedIndexImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedProfileImport } from './routes/_authenticated/profile'
-import { Route as AuthenticatedNewExpenseImport } from './routes/_authenticated/new-expense'
-import { Route as AuthenticatedAllExpensesImport } from './routes/_authenticated/all-expenses'
+import { Route as AuthenticatedNewUploadImport } from './routes/_authenticated/new-upload'
+import { Route as AuthenticatedAllUploadsImport } from './routes/_authenticated/all-uploads'
 
 // Create/Update Routes
 
@@ -40,13 +40,13 @@ const AuthenticatedProfileRoute = AuthenticatedProfileImport.update({
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 
-const AuthenticatedNewExpenseRoute = AuthenticatedNewExpenseImport.update({
-  path: '/new-expense',
+const AuthenticatedNewUploadRoute = AuthenticatedNewUploadImport.update({
+  path: '/new-upload',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 
-const AuthenticatedAllExpensesRoute = AuthenticatedAllExpensesImport.update({
-  path: '/all-expenses',
+const AuthenticatedAllUploadsRoute = AuthenticatedAllUploadsImport.update({
+  path: '/all-uploads',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 
@@ -62,12 +62,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
-    '/_authenticated/all-expenses': {
-      preLoaderRoute: typeof AuthenticatedAllExpensesImport
+    '/_authenticated/all-uploads': {
+      preLoaderRoute: typeof AuthenticatedAllUploadsImport
       parentRoute: typeof AuthenticatedImport
     }
-    '/_authenticated/new-expense': {
-      preLoaderRoute: typeof AuthenticatedNewExpenseImport
+    '/_authenticated/new-upload': {
+      preLoaderRoute: typeof AuthenticatedNewUploadImport
       parentRoute: typeof AuthenticatedImport
     }
     '/_authenticated/profile': {
@@ -85,8 +85,8 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   AuthenticatedRoute.addChildren([
-    AuthenticatedAllExpensesRoute,
-    AuthenticatedNewExpenseRoute,
+    AuthenticatedAllUploadsRoute,
+    AuthenticatedNewUploadRoute,
     AuthenticatedProfileRoute,
     AuthenticatedIndexRoute,
   ]),

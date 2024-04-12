@@ -14,27 +14,27 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-export const Route = createFileRoute("/_authenticated/all-expenses")({
-  component: AllExpenses,
+export const Route = createFileRoute("/_authenticated/all-uploads")({
+  component: Alluploads,
 });
 
-type Expense = {
+type Upload = {
   id: number;
   title: string;
-  amount: number;
+  description: number;
   date: string;
   imageUrl?: string;
 };
 
-function AllExpenses() {
+function Alluploads() {
   const { getToken } = useKindeAuth();
 
-  async function getAllExpenses() {
+  async function getAlluploads() {
     const token = await getToken();
     if (!token) {
       throw new Error("No token found");
     }
-    const res = await fetch(import.meta.env.VITE_APP_API_URL + "/expenses", {
+    const res = await fetch(import.meta.env.VITE_APP_API_URL + "/uploads", {
       headers: {
         Authorization: token,
       },
@@ -42,29 +42,29 @@ function AllExpenses() {
     if (!res.ok) {
       throw new Error("Something went wrong");
     }
-    return (await res.json()) as { expenses: Expense[] };
+    return (await res.json()) as { uploads: Upload[] };
   }
 
   const { isPending, error, data } = useQuery({
-    queryKey: ["getAllExpenses"],
-    queryFn: getAllExpenses,
+    queryKey: ["getAlluploads"],
+    queryFn: getAlluploads,
   });
 
   console.log(data);
 
   return (
     <>
-      {/* <h1 className="text-2xl">All Expenses</h1> */}
+      {/* <h1 className="text-2xl">All Uploads</h1> */}
       {error ? (
         "An error has occurred: " + error.message
       ) : (
         <Table>
-          <TableCaption>A list of your recent expenses.</TableCaption>
+          <TableCaption>A list of your recent uploads.</TableCaption>
           <TableHeader>
             {/* <TableRow>
               <TableHead className="w-[100px]">Invoice</TableHead>
               <TableHead>Date</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
+              <TableHead className="text-right">Description</TableHead>
             </TableRow> */}
           </TableHeader>
           <TableBody>
@@ -84,24 +84,24 @@ function AllExpenses() {
                 </TableCell>
               </TableRow>
             ) : (
-              data.expenses.map((expense, index) => (
-                <React.Fragment key={`expense-${index}`}>
+              data.uploads.map((upload, index) => (
+                <React.Fragment key={`upload-${index}`}>
                   
-                  <div className="font-bold text-center">{expense.amount}</div>
+                  <div className="font-bold text-center">{upload.description}</div>
 
                   {/* <TableRow> */}
-                  {/* <TableCell>{expense.date.split("T")[0]}</TableCell>
+                  {/* <TableCell>{upload.date.split("T")[0]}</TableCell>
                   <TableCell>
                   </TableCell> */}
                   {/* <TableCell> */}
                   <div className="p-4">
                     {" "}
                     {/* Add padding here */}
-                    {expense.imageUrl && (
+                    {upload.imageUrl && (
                       <img
                         className="w-60 h-60 object-cover rounded-lg mx-auto"
-                        src={expense.imageUrl}
-                        alt={expense.title}
+                        src={upload.imageUrl}
+                        alt={upload.title}
                       />
                     )}
                   </div>
@@ -111,14 +111,14 @@ function AllExpenses() {
                   {/* <TableCell className="font-medium" colSpan={3}> */}
                   <div className="flex items-center">
                     <p className="mr-2 flex-grow"></p>
-                    <p className="text-right">{expense.date.split("T")[0]}</p>
+                    <p className="text-right">{upload.date.split("T")[0]}</p>
                   </div>
 
                   {/* </TableCell>} */}
                   {/* </TableRow> */}
                   <TableRow>
                     <TableCell className="font-medium" colSpan={3}>
-                      {expense.title}
+                      {upload.title}
                     </TableCell>
                   </TableRow>
                 </React.Fragment>
