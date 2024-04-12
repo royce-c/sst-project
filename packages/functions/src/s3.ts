@@ -18,7 +18,7 @@ app.post("/signed-url", authMiddleware, async (c) => {
   const userId = c.var.userId;
   const { contentType, contentLength, checksum } = await c.req.json();
 
-  if (contentLength > 1024 * 1024 * 10 * 10) {
+  if (contentLength > 1024 * 1024 * 10) {
     return c.json({ error: "File too large" }, 400);
   }
 
