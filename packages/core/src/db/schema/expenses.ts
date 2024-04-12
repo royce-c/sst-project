@@ -14,7 +14,7 @@ export const expenses = pgTable(
   {
     id: serial("id").primaryKey(),
     userId: text("user_id").notNull(),
-    title: varchar("title", { length: 100 }).notNull(),
+    title: varchar("title", { length: 1000 }).notNull(),
     amount: numeric("amount", { precision: 10, scale: 2 }).notNull(),
     date: date("date", { mode: "string" }).notNull(),
     imageUrl: text("image_url"),

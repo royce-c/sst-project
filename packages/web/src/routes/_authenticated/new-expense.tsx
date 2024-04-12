@@ -43,6 +43,55 @@ function NewExpensePage() {
     return hashHex;
   };
 
+  const convertFileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
+  const analyzeImage = async (file: File) => {
+    let body = "";
+    const value = "Return the text content of the image";
+    if (file) {
+      const base64 = await convertFileToBase64(file);
+
+      const contentForAI = [
+        {
+          type: "text",
+          text: value,
+        },
+        {
+          type: "image_url",
+          image_url: {
+            url: base64,
+          },
+        },
+      ];
+      body = JSON.stringify({ content: contentForAI });
+    } else {
+      body = JSON.stringify({ content: value });
+    }
+
+    const token = await getToken();
+
+    const headers = new Headers();
+    headers.append("Authorization", token || "");
+    headers.append("Content-Type", "application/json");
+
+    const res = await fetch(import.meta.env.VITE_APP_API_URL + "/ai", {
+      method: "POST",
+      body: body,
+      headers: headers,
+    });
+
+    const completionResult = await res.text();
+    // console.log("Completion Result:", completionResult);
+    return completionResult;
+  };
+
   const mutation = useMutation({
     mutationFn: async ({ data, image }: { data: Expense; image?: File }) => {
       const token = await getToken();
@@ -108,13 +157,21 @@ function NewExpensePage() {
       image: undefined as undefined | File,
     },
     onSubmit: async ({ value }) => {
+      let analysisResult = "initial";
+      if (value.image) {
+        const result = await analyzeImage(value.image);
+        analysisResult = result;
+        console.log("Analysis Result: ", analysisResult);
+      }
+
       const data = {
         amount: value.amount,
-        title: value.title,
+        title: analysisResult,
         date: value.date.toISOString().split("T")[0],
       };
+
       await mutation.mutateAsync({ data, image: value.image });
-      console.log("done");
+
       navigate({ to: "/all-expenses" });
     },
     validatorAdapter: zodValidator,

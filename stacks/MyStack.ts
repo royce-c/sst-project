@@ -34,6 +34,15 @@ export function API({ stack }: StackContext) {
       "GET /expenses/total-amount": "packages/functions/src/expenses.handler",
       "GET /expenses": "packages/functions/src/expenses.handler",
       "POST /expenses": "packages/functions/src/expenses.handler",
+      "POST /ai": {
+        function: {
+          environment: {
+            OPENAI_API_KEY: process.env.OPENAI_API_KEY!,
+          },
+          handler: "packages/functions/src/ai.handler",
+        }
+      
+      },
       "POST /signed-url": {
         function: {
           environment: {
