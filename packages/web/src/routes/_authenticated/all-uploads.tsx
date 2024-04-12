@@ -56,8 +56,7 @@ function Alluploads() {
         "An error has occurred: " + error.message
       ) : (
         <Table>
-          <TableCaption>A list of your recent uploads.</TableCaption>
-          <TableHeader></TableHeader>
+          {/* <TableCaption>A list of your recent uploads.</TableCaption> */}
           <TableBody>
             {isPending ? (
               <TableRow key="loading">
@@ -77,7 +76,7 @@ function Alluploads() {
             ) : (
               data.uploads.map((upload, index) => (
                 <React.Fragment key={`upload-${index}`}>
-                  <div className="font-bold text-center">
+                  <div className="font-bold font-large text-center p-3">
                     {upload.description}
                   </div>
 
@@ -97,7 +96,7 @@ function Alluploads() {
                   </div>
 
                   <TableRow>
-                    <TableCell className="font-medium" colSpan={3}>
+                    <TableCell className="font-medium p-3" colSpan={3}>
                       {upload.title}
                     </TableCell>
                   </TableRow>
