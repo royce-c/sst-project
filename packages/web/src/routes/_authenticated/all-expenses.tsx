@@ -9,7 +9,7 @@ import {
   TableBody,
   TableCaption,
   TableCell,
-  TableHead,
+  // TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
@@ -86,10 +86,12 @@ function AllExpenses() {
             ) : (
               data.expenses.map((expense, index) => (
                 <React.Fragment key={`expense-${index}`}>
+                  
+                  <div className="font-bold text-center">{expense.amount}</div>
+
                   {/* <TableRow> */}
                   {/* <TableCell>{expense.date.split("T")[0]}</TableCell>
                   <TableCell>
-                    {formatCurrency(expense.amount)}
                   </TableCell> */}
                   {/* <TableCell> */}
                   <div className="p-4">
