@@ -21,21 +21,21 @@ function RootLayout() {
     <>
       <div className="py-2 flex max-w-2xl mx-auto justify-between items-center ">
         <Link to="/" className="text-2xl">
-          Expense Tracker
+          Upload Tracker
         </Link>
         <div className="flex gap-x-4">
           {" "}
           <Link
-            to="/all-expenses"
+            to="/all-uploads"
             className="[&.active]:text-foreground text-muted-foreground hover:text-foreground transition-colors"
           >
-            All Expenses
+            All Uploads
           </Link>{" "}
           <Link
-            to="/new-expense"
+            to="/new-upload"
             className="[&.active]:text-foreground text-muted-foreground hover:text-foreground transition-colors"
           >
-            New Expense
+            New Upload
           </Link>
           {isAuthenticated && (
             <Link

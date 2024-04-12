@@ -31,9 +31,9 @@ export function API({ stack }: StackContext) {
           handler: "packages/functions/src/lambda.handler",
         }
       },
-      "GET /expenses/total-description": "packages/functions/src/expenses.handler",
-      "GET /expenses": "packages/functions/src/expenses.handler",
-      "POST /expenses": "packages/functions/src/expenses.handler",
+      "GET /uploads/total-description": "packages/functions/src/uploads.handler",
+      "GET /uploads": "packages/functions/src/uploads.handler",
+      "POST /uploads": "packages/functions/src/uploads.handler",
       "POST /ai": {
         function: {
           environment: {
@@ -64,7 +64,7 @@ export function API({ stack }: StackContext) {
 
   const web = new StaticSite(stack, "web", {
     // customDomain: stack.stage === "prod" ? {
-    //   domainName: "expensesappagainb.smw.wtf",
+    //   domainName: "uploadsappagainb.smw.wtf",
     //   hostedZone: "smw.wtf",
     // } : undefined,
     path: "packages/web",

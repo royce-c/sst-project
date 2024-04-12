@@ -11,13 +11,13 @@ export const Route = createFileRoute("/_authenticated/")({
 
 function HomePage() {
   const { getToken } = useKindeAuth();
-  async function getTotalExpense() {
+  async function getTotalupload() {
     const token = await getToken();
     if (!token) {
       throw new Error("No token found");
     }
     const res = await fetch(
-      import.meta.env.VITE_APP_API_URL + "/expenses/total-description",
+      import.meta.env.VITE_APP_API_URL + "/uploads/total-description",
       {
         headers: {
           Authorization: token,
@@ -33,7 +33,7 @@ function HomePage() {
 
   const { isPending, error, data } = useQuery({
     queryKey: ["getTotalSpent"],
-    queryFn: getTotalExpense,
+    queryFn: getTotalupload,
   });
 
   const totalSpent = formatCurrency(data?.total ?? 0);

@@ -5,7 +5,7 @@ import crypto from "crypto";
 import { Hono } from "hono";
 import { handle } from "hono/aws-lambda";
 
-import { authMiddleware } from "@my-expenses-app/core/auth";
+import { authMiddleware } from "@my-uploads-app/core/auth";
 
 const app = new Hono();
 

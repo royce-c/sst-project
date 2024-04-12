@@ -8,8 +8,8 @@ import {
   date,
 } from "drizzle-orm/pg-core";
 
-export const expenses = pgTable(
-  "expenses",
+export const uploads = pgTable(
+  "uploads",
   {
     id: serial("id").primaryKey(),
     userId: text("user_id").notNull(),
