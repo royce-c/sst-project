@@ -2,14 +2,12 @@ import React from "react";
 import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-// import { formatCurrency } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
   TableBody,
   TableCaption,
   TableCell,
-  // TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
@@ -54,19 +52,12 @@ function Alluploads() {
 
   return (
     <>
-      {/* <h1 className="text-2xl">All Uploads</h1> */}
       {error ? (
         "An error has occurred: " + error.message
       ) : (
         <Table>
           <TableCaption>A list of your recent uploads.</TableCaption>
-          <TableHeader>
-            {/* <TableRow>
-              <TableHead className="w-[100px]">Invoice</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead className="text-right">Description</TableHead>
-            </TableRow> */}
-          </TableHeader>
+          <TableHeader></TableHeader>
           <TableBody>
             {isPending ? (
               <TableRow key="loading">
@@ -86,17 +77,11 @@ function Alluploads() {
             ) : (
               data.uploads.map((upload, index) => (
                 <React.Fragment key={`upload-${index}`}>
-                  
-                  <div className="font-bold text-center">{upload.description}</div>
+                  <div className="font-bold text-center">
+                    {upload.description}
+                  </div>
 
-                  {/* <TableRow> */}
-                  {/* <TableCell>{upload.date.split("T")[0]}</TableCell>
-                  <TableCell>
-                  </TableCell> */}
-                  {/* <TableCell> */}
                   <div className="p-4">
-                    {" "}
-                    {/* Add padding here */}
                     {upload.imageUrl && (
                       <img
                         className="w-60 h-60 object-cover rounded-lg mx-auto"
@@ -105,17 +90,12 @@ function Alluploads() {
                       />
                     )}
                   </div>
-                  {/* </TableCell> */}
-                  {/* </TableRow> */}
-                  {/* <TableRow> */}
-                  {/* <TableCell className="font-medium" colSpan={3}> */}
+
                   <div className="flex items-center">
                     <p className="mr-2 flex-grow"></p>
                     <p className="text-right">{upload.date.split("T")[0]}</p>
                   </div>
 
-                  {/* </TableCell>} */}
-                  {/* </TableRow> */}
                   <TableRow>
                     <TableCell className="font-medium" colSpan={3}>
                       {upload.title}
