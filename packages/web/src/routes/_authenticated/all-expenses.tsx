@@ -105,9 +105,18 @@ function AllExpenses() {
                   </div>
                   {/* </TableCell> */}
                   {/* </TableRow> */}
+                  {/* <TableRow> */}
+                  {/* <TableCell className="font-medium" colSpan={3}> */}
+                  <div className="flex items-center">
+                    <p className="mr-2 flex-grow"></p>
+                    <p className="text-right">{expense.date.split("T")[0]}</p>
+                  </div>
+
+                  {/* </TableCell>} */}
+                  {/* </TableRow> */}
                   <TableRow>
                     <TableCell className="font-medium" colSpan={3}>
-                      {expense.title} Date: {expense.date.split("T")[0]}
+                      {expense.title}
                     </TableCell>
                   </TableRow>
                 </React.Fragment>
@@ -118,5 +127,4 @@ function AllExpenses() {
       )}
     </>
   );
-  
 }
