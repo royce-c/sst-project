@@ -40,6 +40,7 @@ export function API({ stack }: StackContext) {
             OPENAI_API_KEY: process.env.OPENAI_API_KEY!,
           },
           handler: "packages/functions/src/ai.handler",
+          timeout: 600,
         }
       
       },

@@ -29,7 +29,7 @@ const openai = new OpenAI({
 });
 
 type Model =
-  | "gpt-4-vision-preview"
+  | "gpt-4-turbo"
   | "gpt-4-1106-preview"
   | "gpt-3.5-turbo-1106";
 
@@ -44,7 +44,7 @@ app.post("/ai", authMiddleware, async (c) => {
   ];
 
   const params: OpenAI.Chat.ChatCompletionCreateParams = {
-    model: "gpt-4-vision-preview",
+    model: "gpt-4-turbo",
     messages: [...messageForAI, ...messages],
     max_tokens: 4096,
   };
