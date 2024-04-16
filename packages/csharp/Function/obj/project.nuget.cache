@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "dgSpecHash": "Q/IlTxa7XN/6uES3W5FvxoTMF0teMx7PZmtp2HSdqCAzw/q3XskxVf+5Wwi4vmY5UUGpeEmP3feyVZJ2Bhvq6w==",
+  "success": true,
+  "projectFilePath": "/home/r/BCIT/FSWD4/Dotnet/sst-expense-tracker/packages/csharp/Function/Function.csproj",
+  "expectedPackageFiles": [
+    "/home/r/.nuget/packages/amazon.lambda.apigatewayevents/2.7.0/amazon.lambda.apigatewayevents.2.7.0.nupkg.sha512",
+    "/home/r/.nuget/packages/amazon.lambda.applicationloadbalancerevents/2.2.0/amazon.lambda.applicationloadbalancerevents.2.2.0.nupkg.sha512",
+    "/home/r/.nuget/packages/amazon.lambda.aspnetcoreserver/9.0.0/amazon.lambda.aspnetcoreserver.9.0.0.nupkg.sha512",
+    "/home/r/.nuget/packages/amazon.lambda.aspnetcoreserver.hosting/1.7.0/amazon.lambda.aspnetcoreserver.hosting.1.7.0.nupkg.sha512",
+    "/home/r/.nuget/packages/amazon.lambda.core/2.2.0/amazon.lambda.core.2.2.0.nupkg.sha512",
+    "/home/r/.nuget/packages/amazon.lambda.logging.aspnetcore/3.1.0/amazon.lambda.logging.aspnetcore.3.1.0.nupkg.sha512",
+    "/home/r/.nuget/packages/amazon.lambda.runtimesupport/1.10.0/amazon.lambda.runtimesupport.1.10.0.nupkg.sha512",
+    "/home/r/.nuget/packages/amazon.lambda.serialization.systemtextjson/2.4.1/amazon.lambda.serialization.systemtextjson.2.4.1.nupkg.sha512",
+    "/home/r/.nuget/packages/microsoft.extensions.configuration/2.1.0/microsoft.extensions.configuration.2.1.0.nupkg.sha512",
+    "/home/r/.nuget/packages/microsoft.extensions.configuration.abstractions/2.1.0/microsoft.extensions.configuration.abstractions.2.1.0.nupkg.sha512",
+    "/home/r/.nuget/packages/microsoft.extensions.configuration.binder/2.1.0/microsoft.extensions.configuration.binder.2.1.0.nupkg.sha512",
+    "/home/r/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/2.1.0/microsoft.extensions.dependencyinjection.abstractions.2.1.0.nupkg.sha512",
+    "/home/r/.nuget/packages/microsoft.extensions.logging/2.1.0/microsoft.extensions.logging.2.1.0.nupkg.sha512",
+    "/home/r/.nuget/packages/microsoft.extensions.logging.abstractions/2.1.0/microsoft.extensions.logging.abstractions.2.1.0.nupkg.sha512",
+    "/home/r/.nuget/packages/microsoft.extensions.options/2.1.0/microsoft.extensions.options.2.1.0.nupkg.sha512",
+    "/home/r/.nuget/packages/microsoft.extensions.primitives/2.1.0/microsoft.extensions.primitives.2.1.0.nupkg.sha512",
+    "/home/r/.nuget/packages/microsoft.identitymodel.abstractions/7.5.1/microsoft.identitymodel.abstractions.7.5.1.nupkg.sha512",
+    "/home/r/.nuget/packages/microsoft.identitymodel.jsonwebtokens/7.5.1/microsoft.identitymodel.jsonwebtokens.7.5.1.nupkg.sha512",
+    "/home/r/.nuget/packages/microsoft.identitymodel.logging/7.5.1/microsoft.identitymodel.logging.7.5.1.nupkg.sha512",
+    "/home/r/.nuget/packages/microsoft.identitymodel.tokens/7.5.1/microsoft.identitymodel.tokens.7.5.1.nupkg.sha512",
+    "/home/r/.nuget/packages/system.identitymodel.tokens.jwt/7.5.1/system.identitymodel.tokens.jwt.7.5.1.nupkg.sha512",
+    "/home/r/.nuget/packages/system.memory/4.5.0/system.memory.4.5.0.nupkg.sha512",
+    "/home/r/.nuget/packages/system.runtime.compilerservices.unsafe/4.5.0/system.runtime.compilerservices.unsafe.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}

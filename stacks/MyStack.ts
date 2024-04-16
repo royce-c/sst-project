@@ -1,8 +1,7 @@
 import { StackContext, Api, StaticSite, Bucket } from "sst/constructs";
 
 export function API({ stack }: StackContext) {
-
-  const audience = `api-NotesApp-${stack.stage}`
+  const audience = `api-NotesApp-${stack.stage}`;
 
   const assetsBucket = new Bucket(stack, "assets");
 
@@ -29,9 +28,10 @@ export function API({ stack }: StackContext) {
         authorizer: "none",
         function: {
           handler: "packages/functions/src/lambda.handler",
-        }
+        },
       },
-      "GET /uploads/total-description": "packages/functions/src/uploads.handler",
+      "GET /uploads/total-description":
+        "packages/functions/src/uploads.handler",
       "GET /uploads": "packages/functions/src/uploads.handler",
       "POST /uploads": "packages/functions/src/uploads.handler",
       "POST /ai": {
@@ -41,8 +41,7 @@ export function API({ stack }: StackContext) {
           },
           handler: "packages/functions/src/ai.handler",
           timeout: 600,
-        }
-      
+        },
       },
       "POST /signed-url": {
         function: {
@@ -50,7 +49,7 @@ export function API({ stack }: StackContext) {
             ASSETS_BUCKET_NAME: assetsBucket.bucketName,
           },
           handler: "packages/functions/src/s3.handler",
-        }
+        },
       },
       "GET /cs": {
         function: {
@@ -58,10 +57,16 @@ export function API({ stack }: StackContext) {
           runtime: "container",
         },
       },
+      "GET /csharp": {
+        function: {
+          handler: "packages/csharp/Function",
+          runtime: "container",
+        },
+      },
     },
   });
 
-  api.attachPermissionsToRoute("POST /signed-url", [assetsBucket, "grantPut"])
+  api.attachPermissionsToRoute("POST /signed-url", [assetsBucket, "grantPut"]);
 
   const web = new StaticSite(stack, "web", {
     // customDomain: stack.stage === "prod" ? {
