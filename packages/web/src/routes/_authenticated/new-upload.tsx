@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { zodValidator } from "@tanstack/zod-form-adapter";
-import { Calendar } from "@/components/ui/calendar";
+// import { Calendar } from "@/components/ui/calendar";
 
 import { useState } from "react";
 
@@ -179,7 +179,7 @@ function NewuploadPage() {
 
   return (
     <>
-      <h1 className="text-2xl">New Upload</h1>
+      {/* <h1 className="text-2xl">New Upload</h1> */}
       {mutation.isError && (
         <Alert>
           <AlertCircle className="h-4 w-4" />
@@ -196,7 +196,7 @@ function NewuploadPage() {
             void form.handleSubmit();
           }}
         >
-          <div>
+          {/* <div>
             <form.Field
               name="title"
               children={(field) => (
@@ -213,13 +213,15 @@ function NewuploadPage() {
                 </Label>
               )}
             />
-          </div>
+          </div> */}
           <div>
             <form.Field
               name="description"
               children={(field) => (
                 <Label>
-                  Description
+                  <p className="py-4 px-1">
+                    Write a Title
+                  </p>
                   <Input
                     type="string"
                     value={field.state.value}
@@ -234,7 +236,7 @@ function NewuploadPage() {
             />
           </div>
 
-          <div className="self-center">
+          {/* <div className="self-center">
             <form.Field
               name="date"
               children={(field) => (
@@ -246,14 +248,16 @@ function NewuploadPage() {
                 />
               )}
             />
-          </div>
+          </div> */}
 
           <div>
             <form.Field
               name="image"
               children={(field) => (
                 <Label>
-                  Description
+                  <p className="py-4 px-1">
+                    Upload Image to be Analyzed
+                  </p>
                   {filePreviewURL && (
                     <img className="max-w-40 m-auto" src={filePreviewURL} />
                   )}
