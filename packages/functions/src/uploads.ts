@@ -42,4 +42,16 @@ app.post("/uploads", authMiddleware, async (c) => {
   return c.json({ uploads: newupload });
 });
 
+app.delete("/uploads", async (c) => {
+  const body = await c.req.json();
+  const id = body.uploadId;
+  await db.delete(uploadsTable).where(eq(uploadsTable.id, id)).returning();
+  const deletedUpload= await db
+    .delete(uploadsTable)
+    .where(eq(uploadsTable.id, id))
+    .returning();
+
+  return c.json(deletedUpload);
+});
+
 export const handler = handle(app);

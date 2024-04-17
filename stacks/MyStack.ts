@@ -34,6 +34,7 @@ export function API({ stack }: StackContext) {
       "GET /uploads/total-description": "packages/functions/src/uploads.handler",
       "GET /uploads": "packages/functions/src/uploads.handler",
       "POST /uploads": "packages/functions/src/uploads.handler",
+      "DELETE /uploads": "packages/functions/src/uploads.handler",
       "POST /ai": {
         function: {
           environment: {

@@ -41,6 +41,26 @@ function Alluploads() {
     return (await res.json()) as { uploads: Upload[] };
   }
 
+  async function deleteUpload(id: number) {
+    const token = await getToken();
+    try {
+      if (!token) {
+        throw new Error("No token found");
+      }
+      const res = await fetch(import.meta.env.VITE_APP_API_URL + "/uploads", {
+        method: "DELETE",
+        body: JSON.stringify({ uploadId: id }),
+        headers: {
+          Authorization: token,
+        },
+      });
+      const data = await res.json();
+      console.log("data: " + data);
+    } catch (error) {
+      console.error("Error deleting upload:", error);
+    }
+  }
+
   const { isPending, error, data } = useQuery({
     queryKey: ["getAlluploads"],
     queryFn: getAlluploads,
@@ -96,6 +116,9 @@ function Alluploads() {
                   <TableRow>
                     <TableCell className="font-medium p-3" colSpan={3}>
                       {upload.title}
+                      <button onClick={() => deleteUpload(upload.id)}
+                          className="h-4 w-4"> Delete
+                      </button>
                     </TableCell>
                   </TableRow>
                 </React.Fragment>
