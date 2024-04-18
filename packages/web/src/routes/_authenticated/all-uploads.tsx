@@ -11,10 +11,12 @@ export const Route = createFileRoute("/_authenticated/all-uploads")({
 
 type Upload = {
   id: number;
+  userId: number;
   title: string;
   description: number;
   date: string;
   imageUrl?: string;
+  favorited: boolean;
 };
 
 function Alluploads() {
@@ -54,6 +56,25 @@ function Alluploads() {
     } catch (error) {
       console.error("Error deleting upload:", error);
     }
+  }
+
+  async function toggleFavorite(id: number, userId: number) {
+    const token = await getToken();
+    if (!token) {
+      throw new Error("No token found");
+    }
+    const res = await fetch(import.meta.env.VITE_APP_API_URL + "/favorites", {
+      method: "POST",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: userId, uploadId: id }),
+    });
+    if (!res.ok) {
+      throw new Error("Failed to toggle favorite");
+    }
+    console.log("Favorite toggled successfully");
   }
 
   const { isPending, error, data } = useQuery({
@@ -116,6 +137,17 @@ function Alluploads() {
                     <TableRow>
                       <TableCell className="font-medium p-3" colSpan={3}>
                         {upload.title}
+                        <button
+                          onClick={() => toggleFavorite(upload.id, upload.userId)}
+                          className="h-4 w-4"
+                        >
+                          {upload.favorited ? "Unfavorite" : "Favorite"}
+                        </button>
+
+                        <button
+                          onClick={() => deleteUpload(upload.id)}
+                          className="h-4 w-4"
+                        ></button>
                         <button
                           onClick={() => deleteUpload(upload.id)}
                           className="h-4 w-4"
