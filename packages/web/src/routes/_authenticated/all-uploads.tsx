@@ -136,25 +136,25 @@ function Alluploads() {
 
                     <TableRow>
                       <TableCell className="font-medium p-3" colSpan={3}>
-                        {upload.title}
-                        <button
-                          onClick={() => toggleFavorite(upload.id, upload.userId)}
-                          className="h-4 w-4"
-                        >
-                          {upload.favorited ? "Unfavorite" : "Favorite"}
-                        </button>
-
-                        <button
-                          onClick={() => deleteUpload(upload.id)}
-                          className="h-4 w-4"
-                        ></button>
-                        <button
-                          onClick={() => deleteUpload(upload.id)}
-                          className="h-4 w-4"
-                        >
-                          {" "}
-                          Delete
-                        </button>
+                        <div className="flex flex-col">
+                          <div>{upload.title}</div>
+                          <div className="flex justify-between mt-2">
+                            <button
+                              onClick={() =>
+                                toggleFavorite(upload.id, upload.userId)
+                              }
+                              className={`h-4 w-4 ${upload.favorited ? "text-blue-500" : "text-gray-500"}`}
+                            >
+                              {upload.favorited ? "Unfavorite" : "Favorite"}
+                            </button>
+                            <button
+                              onClick={() => deleteUpload(upload.id)}
+                              className="h-4 w-4 text-gray-500"
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
                       </TableCell>
                     </TableRow>
                   </React.Fragment>
