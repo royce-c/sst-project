@@ -21,7 +21,7 @@ function RootLayout() {
     <>
       <div className="py-2 flex max-w-2xl mx-auto justify-between items-center ">
         <Link to="/" className="text-2xl">
-          Upload Tracker
+          AI Image Upload
         </Link>
         <div className="flex gap-x-4">
           {" "}
