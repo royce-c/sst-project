@@ -129,15 +129,16 @@ function Alluploads() {
                       )}
                     </div>
 
-
                     <TableRow>
                       <TableCell className="font-medium p-3" colSpan={3}>
-                    <div className="flex items-center">
-                      <p className="mr-2 flex-grow"></p>
-                      <p className="text-right pb-4">{upload.date.split("T")[0]}</p>
-                    </div>
+                        <div className="flex items-center">
+                          <p className="mr-2 flex-grow"></p>
+                          <p className="text-right pb-4">
+                            {upload.date.split("T")[0]}
+                          </p>
+                        </div>
                         <div className="flex flex-col">
-                          <div className="pb-2" >{upload.title}</div>
+                          <div className="pb-2">{upload.title}</div>
                           <div className="flex justify-between mt-2">
                             <button
                               onClick={() =>
