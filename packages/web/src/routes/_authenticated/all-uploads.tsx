@@ -143,13 +143,13 @@ function Alluploads() {
                               onClick={() =>
                                 toggleFavorite(upload.id, upload.userId)
                               }
-                              className={`h-4 w-4 ${upload.favorited ? "text-blue-500" : "text-gray-500"}`}
+                              className={`h-4 w-12 ${upload.favorited ? "text-blue-500" : "text-gray-500"}`}
                             >
                               {upload.favorited ? "Unfavorite" : "Favorite"}
                             </button>
                             <button
                               onClick={() => deleteUpload(upload.id)}
-                              className="h-4 w-4 text-gray-500"
+                              className="h-4 w-12 text-gray-500"
                             >
                               Delete
                             </button>
