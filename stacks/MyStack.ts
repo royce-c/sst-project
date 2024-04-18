@@ -35,6 +35,8 @@ export function API({ stack }: StackContext) {
       "GET /uploads": "packages/functions/src/uploads.handler",
       "POST /uploads": "packages/functions/src/uploads.handler",
       "DELETE /uploads": "packages/functions/src/uploads.handler",
+      "GET /favorites": "packages/functions/src/favorites.handler",
+      "POST /favorites": "packages/functions/src/favorites.handler",
       "POST /ai": {
         function: {
           environment: {
