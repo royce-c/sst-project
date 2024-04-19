@@ -4,6 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { useState } from "react";
 
 export const Route = createFileRoute("/_authenticated/all-uploads")({
   component: Alluploads,
@@ -58,6 +59,8 @@ function Alluploads() {
     }
   }
 
+  const [favoritesCount, setFavoritesCount] = useState<number>(0);
+
   async function toggleFavorite(id: number, userId: number) {
     const token = await getToken();
     if (!token) {
@@ -75,6 +78,29 @@ function Alluploads() {
       throw new Error("Failed to toggle favorite");
     }
     console.log("Favorite toggled successfully");
+    fetchFavoritesCount(userId); // Fetch the updated favorites count
+  }
+
+  async function fetchFavoritesCount(userId: number) {
+    const token = await getToken();
+    if (!token) {
+      throw new Error("No token found");
+    }
+    const res = await fetch(
+      `${import.meta.env.VITE_APP_API_URL}/favorites?userId=${userId}`,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    if (!res.ok) {
+      throw new Error("Failed to fetch favorites count");
+    }
+    const data = await res.json();
+    const userFavorites = data.favorites || [];
+    const favoritesCount = userFavorites.length;
+    setFavoritesCount(favoritesCount);
   }
 
   const { isPending, error, data } = useQuery({
@@ -148,6 +174,9 @@ function Alluploads() {
                             >
                               {upload.favorited ? "Unfavorite" : "Favorite"}
                             </button>
+                            <span className="text-gray-500 mr-2">
+                              {favoritesCount}
+                            </span>
                             <button
                               onClick={() => deleteUpload(upload.id)}
                               className="h-4 w-12 text-gray-500"
