@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
@@ -8,8 +9,6 @@ import {
 } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar as faStarOutline, faStar as faStarFilled } from "@fortawesome/free-regular-svg-icons";
 
 export const Route = createFileRoute("/_authenticated/all-uploads")({
   component: Alluploads,
@@ -71,25 +70,30 @@ function Alluploads() {
     }
   }
 
-  async function toggleFavorite(id: number, userId: number) {
-    const token = await getToken();
-    if (!token) {
-      throw new Error("No token found");
-    }
-    const res = await fetch(import.meta.env.VITE_APP_API_URL + "/favorites", {
-      method: "POST",
-      headers: {
-        Authorization: token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId: userId, uploadId: id }),
-    });
-    if (!res.ok) {
-      throw new Error("Failed to toggle favorite");
-    }
-    console.log("Favorite toggled successfully");
-  }
+  // async function toggleFavorite(id: number, userId: number) {
+  //   const token = await getToken();
+  //   if (!token) {
+  //     throw new Error("No token found");
+  //   }
+  //   const res = await fetch(import.meta.env.VITE_APP_API_URL + "/favorites", {
+  //     method: "POST",
+  //     headers: {
+  //       Authorization: token,
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ userId: userId, uploadId: id }),
+  //   });
+  //   if (!res.ok) {
+  //     throw new Error("Failed to toggle favorite");
+  //   }
+  //   console.log("Favorite toggled successfully");
+  // }
 
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const handleClick = () => {
+    setIsFavorite(!isFavorite);
+  };
   const { isPending, error, data } = useQuery({
     queryKey: ["getAlluploads"],
     queryFn: getAlluploads,
@@ -153,12 +157,11 @@ function Alluploads() {
                           <div className="pb-2">{upload.title}</div>
                           <div className="flex justify-between mt-2">
                             <button
-                              onClick={() =>
-                                toggleFavorite(upload.id, upload.userId)
-                              }
-                              className="h-4 w-12 text-gray-500"
+                              className={`h-4 w-12 ${isFavorite ? "text-yellow-500 text-xl" : "text-gray-500 text-xl"}`}
+                              onClick={handleClick}
+                              // onClick={toggleFavorite}
                             >
-                              <FontAwesomeIcon icon={upload.favorited ? faStarFilled : faStarOutline} />
+                              {isFavorite ? "★" : "☆"}
                             </button>
                             <button
                               onClick={() => deleteUpload(upload.id)}
