@@ -14,7 +14,7 @@ function HomePage() {
           <CardTitle className="text-m">
             Welcome to the AI Image Upload App
           </CardTitle>
-          <a href="/all-uploads" className="p-5 font-semibold all text-center">Click here to view your uploaded images</a>
+          {/* <a href="/all-uploads" className="p-5 font-semibold all text-center">Click here to view your uploaded images</a> */}
         </CardHeader>
       </Card>
     </>
