@@ -28,10 +28,9 @@ export function API({ stack }: StackContext) {
       "GET /": {
         authorizer: "none",
         function: {
-          handler: "packages/functions/src/lambda.handler",
+          handler: "packages/functions/src/uploads.handler",
         }
       },
-      "GET /uploads/total-description": "packages/functions/src/uploads.handler",
       "GET /uploads": "packages/functions/src/uploads.handler",
       "POST /uploads": "packages/functions/src/uploads.handler",
       "DELETE /uploads": "packages/functions/src/uploads.handler",

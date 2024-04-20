@@ -1,7 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { formatCurrency } from "@/lib/utils";
-import { useQuery } from "@tanstack/react-query";
-import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -10,46 +7,15 @@ export const Route = createFileRoute("/_authenticated/")({
 });
 
 function HomePage() {
-  const { getToken } = useKindeAuth();
-  async function getTotalupload() {
-    const token = await getToken();
-    if (!token) {
-      throw new Error("No token found");
-    }
-    const res = await fetch(
-      import.meta.env.VITE_APP_API_URL + "/uploads/total-description",
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
-
-    if (!res.ok) {
-      throw new Error("Something went wrong");
-    }
-    return (await res.json()) as { total: number };
-  }
-
-  const { isPending, error, data } = useQuery({
-    queryKey: ["getTotalSpent"],
-    queryFn: getTotalupload,
-  });
-
-  const totalSpent = formatCurrency(data?.total ?? 0);
-
   return (
     <>
       <Card className="w-fit mx-auto">
         <CardHeader>
-          <CardTitle className="text-sm">Total Spent:</CardTitle>
+          <CardTitle className="text-m">
+            Welcome to the AI Image Upload App
+          </CardTitle>
+          <a href="/all-uploads" className="p-5 font-semibold all text-center">Click here to view your uploaded images</a>
         </CardHeader>
-        <CardContent>
-          {error ? "An error has occurred: " + error.message : null}
-          <div className="text-2xl font-bold">
-            {isPending ? "..." : totalSpent}
-          </div>
-        </CardContent>
       </Card>
     </>
   );
