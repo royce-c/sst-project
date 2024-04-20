@@ -8,6 +8,8 @@ import {
 } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar as faStarOutline, faStar as faStarFilled } from "@fortawesome/free-regular-svg-icons";
 
 export const Route = createFileRoute("/_authenticated/all-uploads")({
   component: Alluploads,
@@ -154,9 +156,9 @@ function Alluploads() {
                               onClick={() =>
                                 toggleFavorite(upload.id, upload.userId)
                               }
-                              className={`h-4 w-12 ${upload.favorited ? "text-blue-500" : "text-gray-500"}`}
+                              className="h-4 w-12 text-gray-500"
                             >
-                              {upload.favorited ? "Unfavorite" : "Favorite"}
+                              <FontAwesomeIcon icon={upload.favorited ? faStarFilled : faStarOutline} />
                             </button>
                             <button
                               onClick={() => deleteUpload(upload.id)}

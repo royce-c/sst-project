@@ -23,8 +23,11 @@
     "packages/*"
   ],
   "dependencies": {
+    "@fortawesome/free-regular-svg-icons": "^6.5.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "ai": "^3.0.21",
     "dotenv": "^16.4.5",
+    "fortawesome": "^0.0.1-security",
     "openai": "^4.33.0"
   }
 }
