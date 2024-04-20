@@ -1,7 +1,11 @@
 import React from "react";
 import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 import { createFileRoute } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import {
+  useQuery,
+  useQueryClient,
+  InvalidateQueryFilters,
+} from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 
@@ -21,6 +25,7 @@ type Upload = {
 
 function Alluploads() {
   const { getToken } = useKindeAuth();
+  const queryClient = useQueryClient(); // Create a queryClient instance
 
   async function getAlluploads() {
     const token = await getToken();
@@ -51,8 +56,14 @@ function Alluploads() {
           Authorization: token,
         },
       });
-      const data = await res.json();
-      console.log("data: " + data);
+      if (!res.ok) {
+        throw new Error("Failed to delete upload");
+      }
+      console.log("Upload deleted successfully");
+      // Update local state or refetch data to reflect the deletion
+      queryClient.invalidateQueries([
+        "getAlluploads",
+      ] as InvalidateQueryFilters);
     } catch (error) {
       console.error("Error deleting upload:", error);
     }
@@ -90,7 +101,6 @@ function Alluploads() {
         "An error has occurred: " + error.message
       ) : (
         <Table>
-          {/* <TableCaption>A list of your recent uploads.</TableCaption> */}
           <TableBody>
             {isPending ? (
               <TableRow key="loading">
