@@ -59,7 +59,9 @@ function Alluploads() {
     }
   }
 
-  const [favoritesCount, setFavoritesCount] = useState<number>(0);
+  const [favoritesCounts, setFavoritesCounts] = useState<{
+    [key: number]: number;
+  }>({});
 
   async function toggleFavorite(id: number, userId: number) {
     const token = await getToken();
@@ -78,10 +80,11 @@ function Alluploads() {
       throw new Error("Failed to toggle favorite");
     }
     console.log("Favorite toggled successfully");
-    fetchFavoritesCount(userId); // Fetch the updated favorites count
+    // Fetch updated favorites count for the upload
+    fetchFavoritesCount(id, userId);
   }
 
-  async function fetchFavoritesCount(userId: number) {
+  async function fetchFavoritesCount(uploadId: number, userId: number) {
     const token = await getToken();
     if (!token) {
       throw new Error("No token found");
@@ -100,7 +103,10 @@ function Alluploads() {
     const data = await res.json();
     const userFavorites = data.favorites || [];
     const favoritesCount = userFavorites.length;
-    setFavoritesCount(favoritesCount);
+    setFavoritesCounts((prevCounts) => ({
+      ...prevCounts,
+      [uploadId]: favoritesCount,
+    }));
   }
 
   const { isPending, error, data } = useQuery({
@@ -175,7 +181,7 @@ function Alluploads() {
                               {upload.favorited ? "Unfavorite" : "Favorite"}
                             </button>
                             <span className="text-gray-500 mr-2">
-                              {favoritesCount}
+                              {favoritesCounts[upload.id] || 0}
                             </span>
                             <button
                               onClick={() => deleteUpload(upload.id)}
